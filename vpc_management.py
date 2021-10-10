@@ -1,19 +1,21 @@
 import boto3
-work_region = "us-west-1"
+work_region   = "us-west-1"
 
 # create new VPC
-ec2_resource = boto3.resource("ec2", region_name = work_region)
-new_vpc = ec2_resource.create_vpc(
-    CidrBlock="10.0.0.0/16"
+ec2_resource  = boto3.resource("ec2", region_name = work_region)
+new_vpc       = ec2_resource.create_vpc(
+    CidrBlock = "10.0.0.0/16"
 )
+
+# Add tags to the VPC
 new_vpc.create_tags(
-    Tags=[
+    Tags = [
         {
-            'Key': 'Name',
+            'Key':   'Name',
             'Value': 'VPC from Python'
         },
         {
-            'Key': 'Owner',
+            'Key':   'Owner',
             'Value': 'GamKon'
         },
     ]
@@ -28,9 +30,9 @@ new_vpc.create_subnet(
 )
 
 # Print all VPCs and cidrs in a given region
-ec2_client = boto3.client("ec2", region_name = work_region)
+ec2_client         = boto3.client("ec2", region_name = work_region)
 all_available_vpcs = ec2_client.describe_vpcs()
-vpcs = all_available_vpcs["Vpcs"]
+vpcs               = all_available_vpcs["Vpcs"]
 
 for vpc in vpcs:
     print(vpc["VpcId"])
