@@ -1,28 +1,28 @@
 # Add environment tags to EC2 servers depends on region they are in
-
+# prod in region_prod, dev in region_dev
 import boto3
 
-work_region_1         = "us-west-1"
-work_region_2         = "ca-central-1"
+work_region_prod         = "us-west-1"
+work_region_dev         = "ca-central-1"
 
-ec2_client_region_1   = boto3.client  ("ec2", region_name = work_region_1)
-ec2_resource_region_1 = boto3.resource("ec2", region_name = work_region_1)
+ec2_client_region_prod   = boto3.client  ("ec2", region_name = work_region_prod)
+ec2_resource_region_prod = boto3.resource("ec2", region_name = work_region_prod)
 
-ec2_client_region_2   = boto3.client  ("ec2", region_name = work_region_2)
-ec2_resource_region_2 = boto3.resource("ec2", region_name = work_region_2)
+ec2_client_region_dev   = boto3.client  ("ec2", region_name = work_region_dev)
+ec2_resource_region_dev = boto3.resource("ec2", region_name = work_region_dev)
 
-instance_ids_region_1 = []
-instance_ids_region_2 = []
+instance_ids_region_prod = []
+instance_ids_region_dev = []
 
-reservations_region_1 = ec2_client_region_1.describe_instances()["Reservations"]
-for res in reservations_region_1:
+reservations_region_prod = ec2_client_region_prod.describe_instances()["Reservations"]
+for res in reservations_region_prod:
     instances = res["Instances"]
     for ins in instances:
-        instance_ids_region_1.append(ins["InstanceId"])
+        instance_ids_region_prod.append(ins["InstanceId"])
 
 
-response = ec2_resource_region_1.create_tags(
-    Resources = instance_ids_region_1,
+response = ec2_resource_region_prod.create_tags(
+    Resources = instance_ids_region_prod,
     Tags = [
         {
             "Key":   "environment",
@@ -31,15 +31,15 @@ response = ec2_resource_region_1.create_tags(
     ]
 )
 
-reservations_region_2 = ec2_client_region_2.describe_instances()["Reservations"]
-for res in reservations_region_2:
+reservations_region_dev = ec2_client_region_dev.describe_instances()["Reservations"]
+for res in reservations_region_dev:
     instances = res["Instances"]
     for ins in instances:
-        instance_ids_region_2.append(ins["InstanceId"])
+        instance_ids_region_dev.append(ins["InstanceId"])
 
 
-response = ec2_resource_region_2.create_tags(
-    Resources = instance_ids_region_2,
+response = ec2_resource_region_dev.create_tags(
+    Resources = instance_ids_region_dev,
     Tags = [
         {
             "Key"  : "environment",
