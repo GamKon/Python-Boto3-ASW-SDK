@@ -10,6 +10,10 @@
 
     - checks status of all EC2 instances in a region
 
+**add-env-tags.py**
+
+    - adds environment tags to EC2 instances depends on region they are in
+
 **eks-status-checks.py**
 
     - prints information about all EKS clusters

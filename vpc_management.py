@@ -1,3 +1,6 @@
+# working with VPC, subnets
+# Read info, create resources
+
 import boto3
 work_region   = "us-west-1"
 
@@ -11,12 +14,12 @@ new_vpc       = ec2_resource.create_vpc(
 new_vpc.create_tags(
     Tags = [
         {
-            'Key':   'Name',
-            'Value': 'VPC from Python'
+            "Key":   "Name",
+            "Value": "VPC from Python"
         },
         {
-            'Key':   'Owner',
-            'Value': 'GamKon'
+            "Key":   "Owner",
+            "Value": "GamKon"
         },
     ]
 )
