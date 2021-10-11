@@ -2,8 +2,8 @@
 # prod in region_prod, dev in region_dev
 import boto3
 
-work_region_prod         = "us-west-1"
-work_region_dev         = "ca-central-1"
+work_region_prod         = "ca-central-1"
+work_region_dev          = "us-west-1"
 
 ec2_client_region_prod   = boto3.client  ("ec2", region_name = work_region_prod)
 ec2_resource_region_prod = boto3.resource("ec2", region_name = work_region_prod)

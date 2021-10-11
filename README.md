@@ -21,3 +21,8 @@
 **volume-backups.py**
 
     - Data Backup for EC2 Instances
+
+**cleanup-snapshots.py**
+
+    - Deletes old snapshots but last two for each EC2 instance
+
